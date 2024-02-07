@@ -8,7 +8,7 @@
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dreams Pos admin template</title>
+    <title>Sign_In</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/favicon.png">
@@ -96,7 +96,7 @@
                                 <button class="btn btn-login" type="submit">Sign In</button>
                             </div>
                             <div class="signinform text-center">
-                                <h4>Don’t have an account? <a href="https://dreamspos.dreamstechnologies.com/laravel/template/public/signup" class="hover-a">Sign Up</a></h4>
+                                <h4>Don’t have an account? <a href="{{route('Registration')}}" class="hover-a">Sign Up</a></h4>
                             </div>
 
                         </div>

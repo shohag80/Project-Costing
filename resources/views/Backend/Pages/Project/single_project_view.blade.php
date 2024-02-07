@@ -14,14 +14,14 @@
             <form action="{{route('Title_Store')}}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-5 col-sm-5 col">
+                    <div class="col-lg-2 col-sm-2 col">
                         <div class="form-group">
                             <label>Project Id</label>
-                            <input type="text" name="project_id" value="{{$Project->id}}" required>
+                            <input type="text" name="project_id" value="{{$Project->id}}" readonly required>
                             <div class="text-danger">@error('project_id'){{$massage}}@enderror</div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-sm-5 col">
+                    <div class="col-lg-8 col-sm-8 col">
                         <div class="form-group">
                             <label>Create Title</label>
                             <input type="text" name="title" required>
@@ -69,8 +69,8 @@
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$item->title}}</td>
                         <td>
-                            <a class="me-3" href="{{route('Add_Component',$item->id)}}">
-                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/edit.svg" alt="img">
+                            <a class="me-3" href="{{route('Add_Component',[$Project->id,$item->id])}}">
+                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/excel.svg" alt="img">
                             </a>
                             <a class="confirm-text" href="">
                                 <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/delete.svg" alt="img">

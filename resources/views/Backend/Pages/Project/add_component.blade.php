@@ -14,53 +14,73 @@
             </div>
             <div class="row">
                 <form action="{{route('Project_Details_Store')}}" method="post">
-                    <div class="col-lg-4 col-sm-4 col">
+                    @csrf
+                    <div class="col-lg-3 col-sm-3 col">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="project_id" value="{{$Project->id}}" readonly>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-sm-3 col">
                         <div class="form-group">
                             <label>Cost Title</label>
-                            <input type="text" name="{{$Title->id}}" value="{{$Title->title}}">
+                            <input type="text" name="title" value="{{$Title->title}}" readonly>
                         </div>
+
                     </div>
 
-                    <div class="col-lg-4 col-sm-4 col">
+                    <div class="col-lg-3 col-sm-3 col">
                         <div class="form-group">
                             <label>Description</label>
-                            <select class="select select2-hidden-accessible" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                            <select class="select select2-hidden-accessible" name="description" required>
                                 <option>Choose Description</option>
                                 @foreach($Description as $item)
-                                <option value="">{{$item->description}}</option>
+                                <option value="{{$item->description}}">{{$item->description}}</option>
                                 @endforeach
                             </select>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-sm-4 col">
+                    <div class="col-lg-3 col-sm-3 col">
                         <div class="form-group">
-                            <label>Designation</label>
-                            <select class="select select2-hidden-accessible" id="designation" name="designation" data-select2-id="7" tabindex="-1" aria-hidden="true">
+                            <label for="designation">Designation</label>
+                            <select class="select select2-hidden-accessible" id="designation" name="designation_id" required>
                                 <option>Choose designation</option>
-                                @foreach($Salary as $item)
-                                <option value="{{$item->id}}">{{$item->designation->designation}}</option>
+                                @foreach($designations as $designation)
+                                <option value="{{ $designation->id }}">{{ $designation->designation }}</option>
                                 @endforeach
                             </select>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-sm-4 col">
-                        <div class="form-group" data-select2-id="5">
-                            <label>Monthly Prof. Salary</label>
-                            <input type="text" name="" value="">
+                    <div class="col-lg-3 col-sm-3 col">
+                        <div class="form-group">
+                            <label for="salary">Monthly Prof. Salary</label>
+                            <input type="text" id="salary" name="salary" readonly required>
                         </div>
+
                     </div>
 
-                    <div class="col-lg-4 col-sm-4 col">
+                    <div class="col-lg-3 col-sm-3 col">
                         <div class="form-group">
                             <label>Man Days</label>
-                            <input type="text" min="0">
+                            <input type="text" min="0" name="man_days" id="inputField" onkeyup="validateInput(this.value)" required>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
-                        <button type="submit" class="btn btn-warning float-end mt-4 mx-5 col-2">Submit</button>
+                    <div class="col-lg-3 col-sm-3 col">
+                        <div class="form-group">
+                            <label>Man Months</label>
+                            <input type="text" min="0" name="man_month" id="man_month" value="" readonly required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-3 col mt-1">
+                        <button type="submit" class="btn btn-warning mt-4 mx-5 col-lg-6 col-sm-6 col">Submit</button>
                     </div>
                 </form>
             </div>

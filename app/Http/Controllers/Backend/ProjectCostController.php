@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjectCostController extends Controller
 {
-    public function project_store(Request $request){
+    public function project_store(Request $request)
+    {
         // dd($request);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -31,18 +32,21 @@ class ProjectCostController extends Controller
         return redirect()->back();
     }
 
-    public function project_list(){
-        $Project=Project::all();
-        return view('Backend.Pages.Project.project_list',compact('Project'));
+    public function project_list()
+    {
+        $Project = Project::all();
+        return view('Backend.Pages.Project.project_list', compact('Project'));
     }
 
-    public function single_project($project_id){
-        $Project=Project::find($project_id);
-        $Title=Title::all();
-        return view('Backend.Pages.Project.single_project_view',compact('Project','Title'));
+    public function single_project($project_id)
+    {
+        $Project = Project::find($project_id);
+        $Title = Title::where('project_id', $project_id)->get();
+        return view('Backend.Pages.Project.single_project_view', compact('Project', 'Title'));
     }
 
-    public function title_store(Request $request){
+    public function title_store(Request $request)
+    {
         // dd($request);
         $validator = Validator::make($request->all(), [
             'project_id' => 'required',
@@ -61,30 +65,50 @@ class ProjectCostController extends Controller
         return redirect()->back();
     }
 
-    public function add_component($project_id){
-        $Title=Title::find($project_id);
-        $Description=Description::all();
-        $Salary=Salary::with('designation')->get();
-        $Project_Details=ProjectDetails::all();
-        // dd($Description->all());
-        return view('Backend.Pages.Project.add_component',compact('Title','Description','Salary','Project_Details'));
+    public function add_component($project_id, $Title_id)
+    {
+        $Project = Project::find($project_id);
+        $Title = Title::find($Title_id);
+        $Description = Description::all();
+        $designations = Designation::all();
+        $Project_Details = ProjectDetails::all();
+        // dd($Title->all());
+        return view('Backend.Pages.Project.add_component', compact('Project', 'Title', 'Description', 'designations', 'Project_Details'));
     }
 
-    public function project_details_store(Request $request){
-        dd($request);
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
-
-        // Project::create([
-        //     'name' => $request->name,
-        // ]);
-
-        // return redirect()->back();
+    public function fetchSalary($designation_id)
+    {
+        $salary = Salary::where('designation_id', $designation_id)->value('salary');
+        return response()->json(['salary' => $salary]);
     }
 
+    public function project_details_store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'designation_id' => 'required',
+            'salary' => 'required',
+            'man_days' => 'required',
+            'man_month' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        ProjectDetails::create([
+            'project_id' => $request->project_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'designation_id' => $request->designation_id,
+            'salary' => $request->salary,
+            'man_days' => $request->man_days,
+            'man_month' => $request->man_month,
+            'sub_total' => $request->salary * $request->man_month,
+        ]);
+
+        return redirect()->back();
+    }
 }

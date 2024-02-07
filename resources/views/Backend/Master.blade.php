@@ -39,6 +39,9 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/css/style.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 
 <body>
@@ -139,6 +142,28 @@
     <!-- Custom JS -->
     <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/script.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('#designation').change(function() {
+                var designationId = $(this).val();
+                $.ajax({
+                    url: '/fetch-salary/' + designationId,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#salary').val(response.salary);
+                    },
+                    error: function() {
+                        $('#salary').val('Error fetching salary');
+                    }
+                });
+            });
+        });
+        
+        function validateInput(value) {
+            // alert(value);
+            var man_months = document.getElementById('man_month').value = value / 20;
+        }
+    </script>
 </body>
 
 </html>

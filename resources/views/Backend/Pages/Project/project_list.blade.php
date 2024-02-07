@@ -52,7 +52,7 @@
 </div>
 <table class="table table-hover">
     <thead>
-        <tr class="text-center">
+        <tr class="text-center bg-warning">
             <th scope="col">SL</th>
             <th scope="col">Name</th>
             <th scope="col">Action</th>
