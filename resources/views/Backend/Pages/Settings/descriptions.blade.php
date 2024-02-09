@@ -16,9 +16,9 @@
                 @csrf
                 <div class="row">
                     <div class="col-lg-10 col-sm-10 col-10">
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" name="description" required>
+                        <div class="mb-3 add-product">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" name="description" required>
                             <div class="text-danger">@error('description'){{$massage}}@enderror</div>
                         </div>
                     </div>
@@ -38,18 +38,18 @@
                 </thead>
                 <tbody>
                     @foreach($description as $key=>$item)
-                        <tr class="text-center">
-                            <th scope="row">{{$key+1}}</th>
-                            <td>{{$item->description}}</td>
-                            <td>
-                                <a class="me-3" href="">
-                                    <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/edit.svg" alt="img">
-                                </a>
-                                <a class="confirm-text" href="">
-                                    <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/delete.svg" alt="img">
-                                </a>
-                            </td>
-                        </tr>
+                    <tr class="text-center">
+                        <th scope="row">{{$key+1}}</th>
+                        <td>{{$item->description}}</td>
+                        <td>
+                            <a class="me-3" href="">
+                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/edit.svg" alt="img">
+                            </a>
+                            <a class="confirm-text" href="">
+                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/delete.svg" alt="img">
+                            </a>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

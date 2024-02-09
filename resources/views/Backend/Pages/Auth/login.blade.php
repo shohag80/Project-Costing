@@ -11,138 +11,132 @@
     <title>Sign_In</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/css/bootstrap.min.css">
-
-    <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/fontawesome/css/all.min.css">
-
-    <!-- animation CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/css/animate.css">
-    <!-- Datetimepicker CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/css/bootstrap-datetimepicker.min.css">
-
-    <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/owlcarousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/owlcarousel/owl.theme.default.min.css">
-    <!-- Select2 CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/select2/css/select2.min.css">
-
-    <!-- Dragula CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/dragula/css/dragula.min.css">
-    <!-- Datatable CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/css/dataTables.bootstrap4.min.css">
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/css/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/build/img/favicon.png">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{asset('css/datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{asset('css/animation.css') }}">
+    <link rel="stylesheet" href="{{asset('css/select.css') }}">
+    <link rel="stylesheet" href="{{asset('css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{asset('css/feathericon.css') }}">
+    <link rel="stylesheet" href="{{asset('css/fancybox.css') }}">
+    <link rel="stylesheet" href="{{asset('css/summernote.css') }}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap_tagsinput.css') }}">
+    <link rel="stylesheet" href="{{asset('css/datetable.css') }}">
+    <link rel="stylesheet" href="{{asset('css/mobile.css') }}">
+    <link rel="stylesheet" href="{{asset('css/carousel.css') }}">
+    <link rel="stylesheet" href="{{asset('css/swiper.css') }}">
+    <link rel="stylesheet" href="{{asset('css/boxicons.css') }}">
+    <link rel="stylesheet" href="{{asset('css/main.css') }}">
 </head>
 
-<body>
-
-
-    <body class="account-page">
-
-        <div id="global-loader">
-            <div class="whirly-loader"> </div>
-        </div> <!-- Main Wrapper -->
-        <div class="main-wrapper">
-
-            <form action="{{route('Login_store')}}" method="post" class="account-content">
-                @csrf
-                <div class="login-wrapper">
-                    <div class="login-content">
+<body class="account-page">
+    <div id="global-loader">
+        <div class="whirly-loader"> </div>
+    </div>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <div class="account-content">
+            <div class="login-wrapper bg-img">
+                <div class="login-content">
+                    <form action="{{route('Login_store')}}" method="POST">
+                        @csrf
                         <div class="login-userset">
                             <div class="login-logo logo-normal">
-                                <h3><b>Projects Cost</b></h3>
+                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/build/img/logo.png" alt="img">
                             </div>
                             <a href="https://dreamspos.dreamstechnologies.com/laravel/template/public/index" class="login-logo logo-white">
-                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/logo-white.png" alt="">
+                                <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/build/img/logo-white.png" alt="">
                             </a>
-
                             <div class="login-userheading">
                                 <h3>Sign In</h3>
-                                <h4>Please login to your account</h4>
+                                <h4>Access the Project Costing panal using your email and passcode.</h4>
                             </div>
-                            <div class="form-login">
-                                <label>Email</label>
+                            <div class="form-login mb-3">
+                                <label class="form-label">Email Address</label>
                                 <div class="form-addons">
                                     <input type="text" name="email" id="Email" value="{{old('email')}}" required placeholder="Enter your email address">
-                                    <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/mail.svg" alt="img">
                                 </div>
                                 @error('email')<div class="text-danger pt-2">
                                     {{$massage}}
                                 </div>@enderror
                             </div>
-                            <div class="form-login">
-                                <label>Password</label>
+                            <div class="form-login mb-3">
+                                <label class="form-label">Password</label>
                                 <div class="pass-group">
                                     <input type="password" class="pass-input" name="password" id="password" value="{{old('password')}}" required placeholder="Enter your password">
-                                    <span class="fas toggle-password fa-eye-slash"></span>
                                 </div>
                                 @error('password')<div class="text-danger pt-2">
                                     {{$massage}}
                                 </div>@enderror
                             </div>
-                            <div class="form-login">
-                                <div class="alreadyuser">
-                                    <h4><a href="https://dreamspos.dreamstechnologies.com/laravel/template/public/forgetpassword" class="hover-a">Forgot Password?</a></h4>
+                            <div class="form-login authentication-check">
+                                <div class="row">
+                                    <div class="col-12 d-flex align-items-center justify-content-between">
+                                        <div class="custom-control custom-checkbox">
+                                            <label class="checkboxs ps-4 mb-0 pb-0 line-height-1">
+                                                <input type="checkbox" class="form-control">
+                                                <span class="checkmarks"></span>Remember me
+                                            </label>
+                                        </div>
+                                        <div class="text-end">
+                                            <a class="forgot-link" href="https://dreamspos.dreamstechnologies.com/laravel/template/public/forgot-password">Forgot Password?</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-login">
-                                <button class="btn btn-login" type="submit">Sign In</button>
+                                <button type="submit" class="btn btn-login">Sign In</button>
                             </div>
-                            <div class="signinform text-center">
-                                <h4>Don’t have an account? <a href="{{route('Registration')}}" class="hover-a">Sign Up</a></h4>
+                            <div class="signinform">
+                                <h4>New on our platform?<a href="{{route('Registration')}}" class="hover-a"> Create an account</a>
+                                </h4>
                             </div>
 
+                            <div class="my-4 d-flex justify-content-center align-items-center copyright-text">
+                                <p>Copyright &copy; 2023 DreamsPOS. All rights reserved</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="login-img">
-                        <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/login.jpg" alt="img">
-                    </div>
                 </div>
-            </form>
+                </form>
+            </div>
         </div>
-        <!-- /Main Wrapper -->
-        <!-- jQuery -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/jquery-3.6.0.min.js"></script>
-
-        <!-- Bootstrap Core JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Feather Icon JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/feather.min.js"></script>
-
-        <!-- Slimscroll JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/jquery.slimscroll.min.js"></script>
-
-        <!-- Datatable JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/jquery.dataTables.min.js"></script>
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/dataTables.bootstrap4.min.js"></script>
-
-        <!-- Select2 JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/select2/js/select2.min.js"></script>
-        <!-- Datetimepicker JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/moment.min.js"></script>
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/bootstrap-datetimepicker.min.js"></script>
-
-        <!-- Chart JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/apexchart/apexcharts.min.js"></script>
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/apexchart/chart-data.js"></script>
-        <!-- Owl JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
-        <!-- Fileupload JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/fileupload/fileupload.min.js"></script>
-        <!-- Sweetalert 2 -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/plugins/sweetalert/sweetalerts.min.js"></script>
-
-        <!-- Custom JS -->
-        <script src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/js/script.js"></script>
-    </body>
+    </div>
+    </div>
+    <!-- /Main Wrapper -->
+    <div class="customizer-links" id="setdata">
+        <ul class="sticky-sidebar">
+            <li class="sidebar-icons">
+                <a href="#" class="navigation-add" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Theme">
+                    <i data-feather="settings" class="feather-five"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{asset('js/feather.min.js')}}"></script>
+    <script src="{{asset('js/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('js/apexcharts.min.js')}}"></script>
+    <script src="{{asset('js/chart-data.js')}}"></script>
+    <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('js/sweetalerts.min.js')}}"></script>
+    <script src="{{asset('js/swiper.min.js')}}"></script>
+    <script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
+    <script src="{{asset('js/select2.min.js')}}"></script>
+    <script src="{{asset('js/moment.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="{{asset('js/daterangepicker.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/dataTables.bootstrap5.min.js')}}"></script>
+    <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
+    <script src="{{asset('js/intlTelInput.js')}}"></script>
+    <script src="{{asset('js/plyr-js.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('js/ResizeSensor.js')}}"></script>
+    <script src="{{asset('js/theia-sticky-sidebar.js')}}"></script>
+    <script src="{{asset('js/theme-script.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
+</body>
 
 </html>

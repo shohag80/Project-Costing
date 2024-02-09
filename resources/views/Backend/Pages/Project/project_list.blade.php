@@ -1,70 +1,80 @@
 @extends('Backend.Master')
 
 @section('content')
-
-<div class="col-lg-12 col-sm-12 col-12 d-flex">
-    <div class="dash-count das2">
-        <div class="dash-counts">
-            <h4>{{$count=count($Project)}}</h4>
-            <h5>Total @if($count=='1')Project. @else Projects. @endif</h5>
-        </div>
-        <div class="dash-imgs">
-            <i data-feather="file-text"></i>
-        </div>
-    </div>
-</div>
 <form action="{{route('Project_Store')}}" method="post">
-    @csrf
-    <div class="row">
-        <div class="col-lg-10 col-sm-10 col-10">
-            <div class="form-group">
-                <label>Create Project</label>
-                <input type="text" name="name" required>
-                <div class="text-danger">@error('name'){{$massage}}@enderror</div>
+    <div class="page-header">
+        <div class="page-title col-lg-12 col-sm-12 col-12">
+            <div class="row">
+                <div class="col-lg-9 col-sm-9 col-9">
+                    <h4>New Project</h4>
+                    <h6>Create new project</h6>
+                </div>
+                <div class="col-lg-3 col-sm-3 col-3 text-end">
+                    <button type="submit" class="btn btn-submit">Create</button>
+                </div>
             </div>
         </div>
-        <div class="col-lg-2 col-sm-2 col-2 mt-4 p-1">
-            <button type="submit" class="btn btn-submit p-2">Add</button>
+    </div>
+    @csrf
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="mb-3 add-product">
+                <label class="form-label">Project Code</label>
+                <input type="text" class="form-control" name="project_code" id="numberInput" required>
+                <div class="text-danger">@error('project_code'){{$massage}}@enderror</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="mb-3 add-product">
+                <label class="form-label">Project Title</label>
+                <input type="text" class="form-control" name="project_title" required>
+                <div class="text-danger">@error('project_title'){{$massage}}@enderror</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="mb-3 add-product">
+                <label class="form-label">Clients</label>
+                <input type="text" class="form-control" name="client" required>
+                <div class="text-danger">@error('client'){{$massage}}@enderror</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="mb-3 add-product">
+                <label class="form-label">Submission Date</label>
+                <input type="text" class="form-control" name="date" id="datepicker" placeholder="Select date (DD-MM-YYYY)" value="<?php echo date('d-m-Y'); ?>" required>
+                <div class="text-danger">@error('client'){{$massage}}@enderror</div>
+            </div>
         </div>
     </div>
 </form>
 <hr>
-<div class="table-top">
-    <div class="search-set">
-        <div class="search-input">
-            <a class="btn btn-searchset"><img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/search-white.svg" alt="img"></a>
-            <div id="DataTables_Table_0_filter" class="dataTables_filter"><label> <input type="search" class="form-control form-control-sm" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div>
-        </div>
-    </div>
-    <div class="wordset">
-        <ul>
-            <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="pdf" aria-label="pdf"><img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/pdf.svg" alt="img"></a>
-            </li>
-            <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="excel" aria-label="excel"><img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/excel.svg" alt="img"></a>
-            </li>
-            <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="print" aria-label="print"><img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/printer.svg" alt="img"></a>
-            </li>
-        </ul>
-    </div>
-</div>
 <table class="table table-hover">
     <thead>
-        <tr class="text-center bg-warning">
+        <tr class="text-center">
             <th scope="col">SL</th>
-            <th scope="col">Name</th>
+            <th scope="col">Cost Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Monthly Salary</th>
+            <th scope="col">Man Days</th>
+            <th scope="col">Man Months</th>
+            <th scope="col">Sub Total</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($Project as $key=>$item)
+        @foreach($Project_Details as $key=>$item)
         <tr class="text-center">
             <th scope="row">{{$key+1}}</th>
-            <td>{{$item->name}}</td>
+            <td>{{$item->title}}</td>
+            <td>{{$item->description}}</td>
+            <td>{{$item->designation_id}}</td>
+            <td>{{$item->salary}}</td>
+            <td>{{$item->man_days}} D</td>
+            <td>{{$item->man_month}} M</td>
+            <td>৳- {{$item->sub_total}} /-</td>
             <td>
-                <a class="me-3" href="{{route('Single_Project',$item->id)}}">
+                <a class="me-3" href="">
                     <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/edit.svg" alt="img">
                 </a>
                 <a class="confirm-text" href="">

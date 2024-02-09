@@ -112,10 +112,12 @@
         <thead>
             <tr class="text-center">
                 <th scope="col">SL</th>
+                <th scope="col">Cost Title</th>
                 <th scope="col">Description</th>
                 <th scope="col">Designation</th>
-                <th scope="col">Monthly Prof. Salary</th>
+                <th scope="col">Monthly Salary</th>
                 <th scope="col">Man Days</th>
+                <th scope="col">Man Months</th>
                 <th scope="col">Sub Total</th>
                 <th scope="col">Action</th>
             </tr>
@@ -124,11 +126,13 @@
             @foreach($Project_Details as $key=>$item)
             <tr class="text-center">
                 <th scope="row">{{$key+1}}</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>৳- 0 /-</td>
+                <td>{{$item->title}}</td>
+                <td>{{$item->description}}</td>
+                <td>{{$item->designation_id}}</td>
+                <td>{{$item->salary}}</td>
+                <td>{{$item->man_days}} D</td>
+                <td>{{$item->man_month}} M</td>
+                <td>৳- {{$item->sub_total}} /-</td>
                 <td>
                     <a class="me-3" href="">
                         <img src="https://dreamspos.dreamstechnologies.com/laravel/template/public/assets/img/icons/edit.svg" alt="img">
@@ -139,6 +143,17 @@
                 </td>
             </tr>
             @endforeach
+            <tr>
+                <td></td>
+                <td>Total Amount -</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center fw-bolder">৳- {{$Total}}/-</td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
     <!-- /add -->

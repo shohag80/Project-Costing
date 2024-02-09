@@ -16,7 +16,7 @@ class ProjectCostController extends Controller
 {
     public function project_store(Request $request)
     {
-        // dd($request);
+        dd($request);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
         ]);
@@ -34,8 +34,8 @@ class ProjectCostController extends Controller
 
     public function project_list()
     {
-        $Project = Project::all();
-        return view('Backend.Pages.Project.project_list', compact('Project'));
+        $Project_Details = ProjectDetails::all();
+        return view('Backend.Pages.Project.project_list', compact('Project_Details'));
     }
 
     public function single_project($project_id)
@@ -71,9 +71,10 @@ class ProjectCostController extends Controller
         $Title = Title::find($Title_id);
         $Description = Description::all();
         $designations = Designation::all();
-        $Project_Details = ProjectDetails::all();
+        $Project_Details = ProjectDetails::where('project_id',$project_id)->get();
+        $Total = ProjectDetails::where('project_id',$project_id)->sum('sub_total');
         // dd($Title->all());
-        return view('Backend.Pages.Project.add_component', compact('Project', 'Title', 'Description', 'designations', 'Project_Details'));
+        return view('Backend.Pages.Project.add_component', compact('Project', 'Title', 'Description', 'designations', 'Project_Details','Total'));
     }
 
     public function fetchSalary($designation_id)
