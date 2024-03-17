@@ -43,14 +43,16 @@ class SettingsController extends Controller
 
     public function designation()
     {
-        $Designation=Designation::all();
-        return view('Backend.Pages.Settings.designation',compact('Designation'));
+        $Designation=Designation::with('description')->get();
+        $Description=Description::all();
+        return view('Backend.Pages.Settings.designation',compact('Designation','Description'));
     }
 
     public function designation_store(Request $request)
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
+            'description_id' => 'required',
             'designation' => 'required',
         ]);
 
@@ -59,6 +61,7 @@ class SettingsController extends Controller
         }
 
         Designation::create([
+            'description_id' => $request->description_id,
             'designation' => $request->designation,
         ]);
 

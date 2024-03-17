@@ -10,4 +10,8 @@ class Designation extends Model
     use HasFactory;
     protected $guarded=[];
 
+    public function description(){
+        return $this->belongsTo(Description::class);
+    }
+
 }

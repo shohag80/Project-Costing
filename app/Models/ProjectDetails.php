@@ -10,4 +10,12 @@ class ProjectDetails extends Model
     use HasFactory;
     protected $guarded=[];
 
+    public function description(){
+        return $this->belongsTo(Description::class);
+    }
+
+    public function designation(){
+        return $this->belongsTo(Designation::class);
+    }
+
 }

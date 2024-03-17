@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/project-list', [ProjectCostController::class, 'project_list'])->name('Project_List');
     Route::get('/project-list/single/{project_id}', [ProjectCostController::class, 'single_project'])->name('Single_Project');
-    Route::get('/project-list/single-project/add-component/{project_id}/{title_id}', [ProjectCostController::class, 'add_component'])->name('Add_Component');
+    Route::get('/project-list/single-project/add-component/{project_id}', [ProjectCostController::class, 'add_component'])->name('Add_Component');
 
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/descriptions', [SettingsController::class, 'description'])->name('Description');

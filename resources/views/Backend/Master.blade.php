@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{asset('css/swiper.css') }}">
     <link rel="stylesheet" href="{{asset('css/boxicons.css') }}">
     <link rel="stylesheet" href="{{asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{asset('css/style.css') }}">
 </head>
 
 
@@ -85,6 +86,26 @@
     <script src="{{asset('js/script.js')}}"></script>
 
     <script>
+        $(document).ready(function() {
+            $('#designation').change(function() {
+                var designationId = $(this).val();
+                $.ajax({
+                    url: '/fetch-salary/' + designationId,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#salary').val(response.salary);
+                    },
+                    error: function() {
+                        $('#salary').val('Error fetching salary');
+                    }
+                });
+            });
+        });
+        
+        function validateInput(value) {
+            // alert(value);
+            var man_months = document.getElementById('man_month').value = value / 20;
+        }
         // Number Input
         document.getElementById("numberInput").addEventListener("keypress", function(event) {
             // Allow only numbers
@@ -101,6 +122,7 @@
                 event.target.value = inputValue.slice(0, -1); // Remove the last character
             }
         });
+        
     </script>
 </body>
 

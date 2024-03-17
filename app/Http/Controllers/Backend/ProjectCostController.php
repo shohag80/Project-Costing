@@ -16,9 +16,12 @@ class ProjectCostController extends Controller
 {
     public function project_store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'project_code' => 'required',
+            'project_title' => 'required',
+            'client' => 'required',
+            'date' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -26,7 +29,10 @@ class ProjectCostController extends Controller
         }
 
         Project::create([
-            'name' => $request->name,
+            'project_code' => $request->project_code,
+            'project_title' => $request->project_title,
+            'client' => $request->client,
+            'date' => $request->date,
         ]);
 
         return redirect()->back();
@@ -34,8 +40,8 @@ class ProjectCostController extends Controller
 
     public function project_list()
     {
-        $Project_Details = ProjectDetails::all();
-        return view('Backend.Pages.Project.project_list', compact('Project_Details'));
+        $Project = Project::all();
+        return view('Backend.Pages.Project.project_list', compact('Project'));
     }
 
     public function single_project($project_id)
@@ -65,16 +71,15 @@ class ProjectCostController extends Controller
         return redirect()->back();
     }
 
-    public function add_component($project_id, $Title_id)
+    public function add_component($project_id)
     {
         $Project = Project::find($project_id);
-        $Title = Title::find($Title_id);
-        $Description = Description::all();
-        $designations = Designation::all();
+        $Description = Description::with('description');
+        $Designation = Designation::with('designation');
         $Project_Details = ProjectDetails::where('project_id',$project_id)->get();
         $Total = ProjectDetails::where('project_id',$project_id)->sum('sub_total');
         // dd($Title->all());
-        return view('Backend.Pages.Project.add_component', compact('Project', 'Title', 'Description', 'designations', 'Project_Details','Total'));
+        return view('Backend.Pages.Project.add_component', compact('Project', 'Description', 'Designation', 'Project_Details','Total'));
     }
 
     public function fetchSalary($designation_id)
@@ -86,30 +91,27 @@ class ProjectCostController extends Controller
     public function project_details_store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'project_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
+            'project_name' => 'required',
+            'cost_title' => 'required',
+            'desciption_id' => 'required',
             'designation_id' => 'required',
             'salary' => 'required',
             'man_days' => 'required',
             'man_month' => 'required',
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         ProjectDetails::create([
-            'project_id' => $request->project_id,
-            'title' => $request->title,
-            'description' => $request->description,
+            'project_id' => $request->project_name,
+            'title' => $request->cost_title,
+            'description_id' => $request->desciption_id,
             'designation_id' => $request->designation_id,
             'salary' => $request->salary,
             'man_days' => $request->man_days,
             'man_month' => $request->man_month,
             'sub_total' => $request->salary * $request->man_month,
         ]);
-
         return redirect()->back();
     }
 }

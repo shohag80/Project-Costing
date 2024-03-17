@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->restrictOnDelete();
             $table->foreignId('designation_id')->constrained()->restrictOnDelete();
+            $table->foreignId('description_id')->constrained()->restrictOnDelete();
             $table->string('title');
-            $table->string('description');
             $table->string('salary');
             $table->string('man_days');
             $table->double('man_month');
-            $table->double('sub_total')->comment('byTitle');
+            $table->double('sub_total');
             $table->timestamps();
         });
     }
