@@ -38,11 +38,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/project-list/single-project/add-component/{project_id}', [ProjectCostController::class, 'add_component'])->name('Add_Component');
 
     Route::group(['prefix' => 'settings'], function () {
-        Route::get('/descriptions', [SettingsController::class, 'description'])->name('Description');
+        Route::get('/descriptions', [SettingsController::class, 'description_list'])->name('Description');
         Route::post('/descriptions', [SettingsController::class, 'description_store'])->name('Description_Store');
+        Route::get('/descriptions-update/{id}', [SettingsController::class, 'update'])->name('Description_Update');
+        Route::post('/description-update-store/{id}', [SettingsController::class, 'description_update'])->name('Description_Update_Store');
+        Route::get('/description-delete/{id}', [SettingsController::class, 'description_delete'])->name('Description_Delete');
+
         Route::get('/designation', [SettingsController::class, 'designation'])->name('Designation');
         Route::post('/designation', [SettingsController::class, 'designation_store'])->name('Designation_Store');
+        Route::get('/designation-update/{id}', [SettingsController::class, 'designation_update'])->name('Designation_Update');
+        Route::post('/designation-update/{id}', [SettingsController::class, 'designation_update_store'])->name('Designation_Update_Store');
+        Route::get('/designation-delete/{id}', [SettingsController::class, 'designation_delete'])->name('Designation_Delete');
+
         Route::get('/salary', [SettingsController::class, 'salary'])->name('Salary');
         Route::post('/salary', [SettingsController::class, 'salary_store'])->name('Salary_Store');
+        Route::get('/salary-update/{id}', [SettingsController::class, 'salary_update'])->name('Salary_Update');
+        Route::post('/salary-Update/{id}', [SettingsController::class, 'salary_store_update'])->name('Salary_Update_Store');
+        Route::get('/salary-delete/{id}', [SettingsController::class, 'salary_delete'])->name('Salary_Delete');
     });
 });
