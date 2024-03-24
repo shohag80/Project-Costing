@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,8 +29,11 @@ class AuthController extends Controller
         }
 
         $credentials = $request->only('email', 'password');
-
-        $login = auth()->attempt($credentials);
+        try{
+            $login = auth()->attempt($credentials);
+        }catch(Exception $e){
+            return redirect()->back(); 
+        }
 
         if ($login) {
             return redirect()->route('Dashboard');

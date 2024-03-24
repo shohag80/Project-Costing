@@ -29,11 +29,13 @@ Route::post('/registration', [AuthController::class, 'reg_store'])->name('Regist
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DeshboardController::class, 'dashboard'])->name('Dashboard');
 
-    Route::post('/project-store', [ProjectCostController::class, 'project_store'])->name('Project_Store');
     Route::post('/title-store', [ProjectCostController::class, 'title_store'])->name('Title_Store');
     Route::post('/project-details-store', [ProjectCostController::class, 'project_details_store'])->name('Project_Details_Store');
-
+    
     Route::get('/project-list', [ProjectCostController::class, 'project_list'])->name('Project_List');
+    Route::post('/project-store', [ProjectCostController::class, 'project_store'])->name('Project_Store');
+    Route::get('/project-update/{id}', [ProjectCostController::class, 'project_update'])->name('Project_Update');
+    Route::post('/project-update/{id}', [ProjectCostController::class, 'project_update_store'])->name('Project_Update_Store');
     Route::get('/project-list/single/{project_id}', [ProjectCostController::class, 'single_project'])->name('Single_Project');
     Route::get('/project-list/single-project/add-component/{project_id}', [ProjectCostController::class, 'add_component'])->name('Add_Component');
 

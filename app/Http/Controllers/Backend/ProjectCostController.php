@@ -37,6 +37,36 @@ class ProjectCostController extends Controller
 
         return redirect()->back();
     }
+    
+    public function project_update($id){
+        $project=Project::find($id);
+        return view('Backend.Pages.Project.project_update',compact('project'));
+    }
+    
+    public function project_update_store(Request $request, $id)
+    {
+        $project=Project::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'project_code' => 'required',
+            'project_title' => 'required',
+            'client' => 'required',
+            'date' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $project->update([
+            'project_code' => $request->project_code,
+            'project_title' => $request->project_title,
+            'client' => $request->client,
+            'date' => $request->date,
+        ]);
+
+        return redirect()->route('Project_List');
+    }
 
     public function project_list()
     {
