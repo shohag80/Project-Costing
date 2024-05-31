@@ -89,13 +89,16 @@
         $(document).ready(function() {
             $('#designation').change(function() {
                 var designationId = $(this).val();
+                $('#global-loader').show();
                 $.ajax({
                     url: '/fetch-salary/' + designationId,
                     type: 'GET',
                     success: function(response) {
+                        $('#global-loader').hide();
                         $('#salary').val(response.salary);
                     },
                     error: function() {
+                        $('#global-loader').hide();
                         $('#salary').val('Error fetching salary');
                     }
                 });

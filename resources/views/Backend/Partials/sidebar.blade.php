@@ -15,7 +15,7 @@
                     <h6 class="submenu-hdr">Finance & Accounts</h6>
                     <ul>
                         <li class="submenu">
-                            <a class="" href="javascript:void(0);"><i data-feather="file-text"></i><span>Expense</span><span class="menu-arrow"></span></a>
+                            <a class="" href=""><i data-feather="file-text"></i><span>Expense</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{route('Project_List')}}">Project List</a></li>
                             </ul>

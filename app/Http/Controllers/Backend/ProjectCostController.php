@@ -37,15 +37,16 @@ class ProjectCostController extends Controller
 
         return redirect()->back();
     }
-    
-    public function project_update($id){
-        $project=Project::find($id);
-        return view('Backend.Pages.Project.project_update',compact('project'));
+
+    public function project_update($id)
+    {
+        $project = Project::find($id);
+        return view('Backend.Pages.Project.project_update', compact('project'));
     }
-    
+
     public function project_update_store(Request $request, $id)
     {
-        $project=Project::find($id);
+        $project = Project::find($id);
 
         $validator = Validator::make($request->all(), [
             'project_code' => 'required',
@@ -66,6 +67,11 @@ class ProjectCostController extends Controller
         ]);
 
         return redirect()->route('Project_List');
+    }
+
+    public function add_project()
+    {
+        return view('Backend.Pages.Project.add_project');
     }
 
     public function project_list()
@@ -104,12 +110,12 @@ class ProjectCostController extends Controller
     public function add_component($project_id)
     {
         $Project = Project::find($project_id);
-        $Description = Description::with('description');
-        $Designation = Designation::with('designation');
-        $Project_Details = ProjectDetails::where('project_id',$project_id)->get();
-        $Total = ProjectDetails::where('project_id',$project_id)->sum('sub_total');
-        // dd($Title->all());
-        return view('Backend.Pages.Project.add_component', compact('Project', 'Description', 'Designation', 'Project_Details','Total'));
+        $Description = Description::all();
+        $Designation = Designation::all();
+        $Project_Details = ProjectDetails::where('project_id', $project_id)->get();
+        $Total = ProjectDetails::where('project_id', $project_id)->sum('sub_total');
+        // dd($Description);
+        return view('Backend.Pages.Project.project_component', compact('Project', 'Description', 'Designation', 'Project_Details', 'Total'));
     }
 
     public function fetchSalary($designation_id)
