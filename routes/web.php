@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/project-update/{id}', [ProjectCostController::class, 'project_update_store'])->name('Project_Update_Store');
 
     Route::get('/add-component/{id}', [ProjectCostController::class, 'add_component'])->name('Add_Component');
-    Route::post('/single-project', [ProjectCostController::class, 'project_details_store'])->name('Project_Details_Store');
+    Route::post('/single-project/{project_id}', [ProjectCostController::class, 'project_details_store'])->name('Project_Details_Store');
 
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/descriptions', [SettingsController::class, 'description_list'])->name('Description');
@@ -60,6 +60,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/salary-update/{id}', [SettingsController::class, 'salary_update'])->name('Salary_Update');
         Route::post('/salary-Update/{id}', [SettingsController::class, 'salary_store_update'])->name('Salary_Update_Store');
         Route::get('/salary-delete/{id}', [SettingsController::class, 'salary_delete'])->name('Salary_Delete');
+
+        Route::get('/title', [SettingsController::class, 'title'])->name('Title');
+        Route::post('/title', [SettingsController::class, 'title_store'])->name('Title_Store');
+        Route::get('/title-update/{id}', [SettingsController::class, 'title_update'])->name('Title_Update');
+        Route::post('/title-Update/{id}', [SettingsController::class, 'title_store_update'])->name('Title_Update_Store');
+        Route::get('/title-delete/{id}', [SettingsController::class, 'title_delete'])->name('Title_Delete');
     });
 });
     

@@ -124,22 +124,23 @@ class ProjectCostController extends Controller
         return response()->json(['salary' => $salary]);
     }
 
-    public function project_details_store(Request $request)
+    public function project_details_store(Request $request, $project_id)
     {
-        $validator = Validator::make($request->all(), [
-            'project_name' => 'required',
-            'cost_title' => 'required',
-            'desciption_id' => 'required',
-            'designation_id' => 'required',
-            'salary' => 'required',
-            'man_days' => 'required',
-            'man_month' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        dd($request->all());
+        // $validator = Validator::make($request->all(), [
+        //     'project_name' => 'required',
+        //     'cost_title' => 'required',
+        //     'desciption_id' => 'required',
+        //     'designation_id' => 'required',
+        //     'salary' => 'required',
+        //     'man_days' => 'required',
+        //     'man_month' => 'required',
+        // ]);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
         ProjectDetails::create([
-            'project_id' => $request->project_name,
+            'project_id' => $project_id,
             'title' => $request->cost_title,
             'description_id' => $request->desciption_id,
             'designation_id' => $request->designation_id,

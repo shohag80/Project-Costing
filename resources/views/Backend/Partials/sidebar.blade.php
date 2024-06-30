@@ -35,6 +35,7 @@
                                 <li><a class="" href="{{route('Description')}}">Description Settings</a></li>
                                 <li><a class="" href="{{route('Designation')}}">Designation Settings</a></li>
                                 <li><a class="" href="{{route('Salary')}}">Monthly Prof. Salary Settings</a></li>
+                                <li><a class="" href="{{route('Title')}}">Title</a></li>
                             </ul>
                         </li>
                         <li>

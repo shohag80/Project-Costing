@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Description;
 use App\Models\Designation;
+use App\Models\Project;
 use App\Models\Salary;
+use App\Models\Title;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,15 +36,16 @@ class SettingsController extends Controller
 
         return redirect()->route('Description');
     }
-    
-    public function update($id){
-        $description_data=Description::find($id);
-        return view('Backend.Pages.Settings.descriptions_update',compact('description_data'));
+
+    public function update($id)
+    {
+        $description_data = Description::find($id);
+        return view('Backend.Pages.Settings.descriptions_update', compact('description_data'));
     }
 
     public function description_update(Request $request, $id)
     {
-        $description=Description::find($id);
+        $description = Description::find($id);
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'description' => 'required',
@@ -59,12 +62,13 @@ class SettingsController extends Controller
         return redirect()->route('Description');
     }
 
-    public function description_delete($id){
+    public function description_delete($id)
+    {
         Description::find($id)->delete();
         return redirect()->back();
     }
-    
-    
+
+
     public function processRequest(Request $request)
     {
         $data = Description::find($request);
@@ -79,11 +83,11 @@ class SettingsController extends Controller
 
     public function designation()
     {
-        $Designation=Designation::with('description')->get();
-        $Description=Description::all();
-        return view('Backend.Pages.Settings.designation',compact('Designation','Description'));
+        $Designation = Designation::with('description')->get();
+        $Description = Description::all();
+        return view('Backend.Pages.Settings.designation', compact('Designation', 'Description'));
     }
-    
+
     public function designation_store(Request $request)
     {
         // dd($request->all());
@@ -107,15 +111,15 @@ class SettingsController extends Controller
 
     public function designation_update($id)
     {
-        $designation=Designation::find($id);
-        $description=Description::all();
-        return view('Backend.Pages.Settings.designation_update',compact('designation', 'description'));
+        $designation = Designation::find($id);
+        $description = Description::all();
+        return view('Backend.Pages.Settings.designation_update', compact('designation', 'description'));
     }
 
     public function designation_update_store(Request $request, $id)
     {
         // dd($request->all());
-        $designation=Designation::find($id);
+        $designation = Designation::find($id);
         $validator = Validator::make($request->all(), [
             'description_id' => 'required',
             'designation' => 'required',
@@ -133,12 +137,13 @@ class SettingsController extends Controller
         return redirect()->route('Designation');
     }
 
-    public function designation_delete($id){
+    public function designation_delete($id)
+    {
         Designation::find($id)->delete();
         return redirect()->back();
     }
-    
-    
+
+
 
 
 
@@ -148,11 +153,11 @@ class SettingsController extends Controller
 
     public function salary()
     {
-        $Designation=Designation::all();
-        $Salary=Salary::with('designation')->get();
-        return view('Backend.Pages.Settings.salary',compact('Designation','Salary'));
+        $Designation = Designation::all();
+        $Salary = Salary::with('designation')->get();
+        return view('Backend.Pages.Settings.salary', compact('Designation', 'Salary'));
     }
-    
+
     public function salary_store(Request $request)
     {
         // dd($request->all());
@@ -169,38 +174,111 @@ class SettingsController extends Controller
             'designation_id' => $request->designation_id,
             'salary' => $request->salary,
         ]);
-        
+
         return redirect()->back();
     }
-    
+
     public function salary_update($id)
     {
-        $Salary=Salary::find($id);
-        $Designation=Designation::all();
-        return view('Backend.Pages.Settings.salary_update',compact('Designation','Salary'));
+        $Salary = Salary::find($id);
+        $Designation = Designation::all();
+        return view('Backend.Pages.Settings.salary_update', compact('Designation', 'Salary'));
     }
-    
+
     public function salary_store_update(Request $request, $id)
     {
-        $Salary=Salary::find($id);
+        $Salary = Salary::find($id);
         $validator = Validator::make($request->all(), [
             'designation_id' => 'required',
             'salary' => 'required',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         $Salary->update([
             'designation_id' => $request->designation_id,
             'salary' => $request->salary,
         ]);
-        
+
         return redirect()->route('Salary');
     }
-    
-    public function salary_delete($id){
+
+    public function salary_delete($id)
+    {
+        Salary::find($id)->delete();
+        return redirect()->back();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function title()
+    {
+        $Project = Project::all();
+        $Title = Title::all();
+        return view('Backend.Pages.Settings.title', compact('Project', 'Title'));
+    }
+
+    public function title_store(Request $request)
+    {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|max:2',
+            'title' => 'required|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        Title::create([
+            'project_id' => $request->project_id,
+            'title' => $request->title,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function title_update($id)
+    {
+        $Title = Title::find($id);
+        $Project = Project::all();
+        return view('Backend.Pages.Settings.title_update', compact('Project', 'Title'));
+    }
+
+    public function title_store_update(Request $request, $id)
+    {
+        $Title = Title::find($id);
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|max:2',
+            'title' => 'required|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $Title->update([
+            'project_id' => $request->project_id,
+            'title' => $request->title,
+        ]);
+
+        return redirect()->route('Title');
+    }
+
+    public function title_delete($id)
+    {
         Salary::find($id)->delete();
         return redirect()->back();
     }

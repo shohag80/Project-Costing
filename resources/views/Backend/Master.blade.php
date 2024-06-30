@@ -87,8 +87,9 @@
 
     <script>
         $(document).ready(function() {
-            $('#designation').change(function() {
-                var designationId = $(this).val();
+            function salary() {
+                var designationId = $('#designation').val();
+                console.log(designationId);
                 $('#global-loader').show();
                 $.ajax({
                     url: '/fetch-salary/' + designationId,
@@ -102,12 +103,20 @@
                         $('#salary').val('Error fetching salary');
                     }
                 });
-            });
+            };
+            salary();
+            $('#designation').on('change', salary);
         });
-        
+
         function validateInput(value) {
             // alert(value);
-            var man_months = document.getElementById('man_month').value = value / 20;
+            document.getElementById('man_month').value = value / 20;
+
+            var months = $('#man_month').val();
+            var salary = $('#salary').val();
+            var sub_total = months * salary;
+
+            $('#sub-total').val(sub_total);
         }
         // Number Input
         document.getElementById("numberInput").addEventListener("keypress", function(event) {
@@ -125,7 +134,6 @@
                 event.target.value = inputValue.slice(0, -1); // Remove the last character
             }
         });
-        
     </script>
 </body>
 
