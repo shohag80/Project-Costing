@@ -110,13 +110,14 @@ class ProjectCostController extends Controller
     public function add_component($project_id)
     {
         $Project = Project::find($project_id);
-        $Description = Description::all();
-        $Designation = Designation::all();
-        $Title = Title::where('status', 1)->get();
+        $Titles = Title::where('status', 1)->get();
+        $Descriptions = Description::with('designation')->get();
+        $Designations = Designation::with('description')->get();
+        $Salary = Salary::all();
         $Project_Details = ProjectDetails::where('project_id', $project_id)->get();
         $Total = ProjectDetails::where('project_id', $project_id)->sum('sub_total');
-        // dd($Description);
-        return view('Backend.Pages.Project.project_component', compact('Project', 'Description', 'Designation', 'Project_Details', 'Total', 'Title'));
+        // dd($Descriptions);
+        return view('Backend.Pages.Project.project_component', compact('Salary', 'Project', 'Descriptions', 'Designations', 'Project_Details', 'Total', 'Titles'));
     }
 
     public function fetchSalary($designation_id)

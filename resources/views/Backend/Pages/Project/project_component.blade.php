@@ -18,11 +18,11 @@
         </div>
         <hr>
         <div class="container">
-            @foreach ($Title as $key => $item)
-                <div class="container bg-warning p-2 m-2 rounded-1">
-                    {{ $key + 1 }}. {{ $item->title }}
+            @foreach ($Titles as $key => $title)
+                <div class="container bg-warning p-2 rounded-1">
+                    {{ $key + 1 }}. {{ $title->title }}
                 </div>
-                <table>
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th class="col">Description of Work</th>
@@ -34,45 +34,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($Description as $row)
-                            @if ($item->id == $row->title_id)
+                        @foreach ($Descriptions as $descKey => $description)
+                            @if ($description->title_id == $title->id)
                                 <tr>
-                                    <td>
-                                        <select class="form-control" name="desciption_id[]">
-                                            <option data-select2-id="select2-data-24-z6go">Choose</option>
-                                            @foreach ($Description as $item)
-                                                <option @if ($item->id == $row->title_id) selected @endif
-                                                    value="{{ $item->id }}">
-                                                    {{ $item->description }}
+                                    <td class="col">
+                                        <select class="form-control" name="description_id[]">
+                                            <option value="">Choose</option>
+                                            @foreach ($Descriptions as $descItem)
+                                                <option @if ($descItem->id == $description->id) selected @endif
+                                                    value="{{ $descItem->id }}">
+                                                    {{ $descItem->description }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td>
-                                        <select class="form-control" id="designation" name="designation[]">
+                                    <td class="col">
+                                        <select class="form-control" name="designation[]">
                                             <option value="">Choose</option>
-                                            @foreach ($Designation as $item)
-                                                <option @if ($item->id == 1) selected @endif
-                                                    value="{{ $item->id }}" data-salary="{{ $item->monthly_salary }}">
-                                                    {{ $item->designation }}</option>
+                                            @foreach ($Designations as $designation)
+                                                <option @if ($designation->description_id == $description->id) selected @endif
+                                                    value="{{ $designation->id }}">
+                                                    {{ $designation->designation }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td>
-                                        <input type="text" class="form-control" min="0" name="man_days[]"
-                                            id="inputField" width="10px" required>
+                                    <td class="col">
+                                        <input type="text" class="form-control" min="0" name="man_days[]">
                                     </td>
-                                    <td>
-                                        <input type="text" class="form-control" name="man_month[]" id="man_month"
-                                            value="" required readonly>
+                                    <td class="col">
+                                        <input type="text" class="form-control" name="man_months[]" readonly>
                                     </td>
-                                    <td>
-                                        <input type="text" class="form-control" id="salary" name="salary[]" readonly
-                                            required>
+                                    <td class="col">
+                                        <select class="form-control" name="designation[]">
+                                            <option value="">Choose</option>
+                                            @foreach ($Salary as $amt)
+                                                <option @if ($amt->designation_id == $description->designation[0]['id']) selected @endif
+                                                    value="{{ $amt->id }}">
+                                                    {{ $amt->salary }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </td>
-                                    <td>
-                                        <input type="text" class="form-control" id="sub-total" name="sub_total[]"
-                                            readonly required>
+                                    <td class="col">
+                                        <input type="text" class="form-control" name="sub_total[]" readonly>
                                     </td>
                                 </tr>
                             @endif
