@@ -16,13 +16,15 @@ class SettingsController extends Controller
     public function description_list()
     {
         $description = Description::all();
-        return view('Backend.Pages.Settings.descriptions', compact('description'));
+        $title = Title::all();
+        return view('Backend.Pages.Settings.descriptions', compact('description', 'title'));
     }
 
     public function description_store(Request $request)
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
+            'title_id' => 'required|integer',
             'description' => 'required',
         ]);
 
@@ -31,6 +33,7 @@ class SettingsController extends Controller
         }
 
         Description::create([
+            'title_id' => $request->title_id,
             'description' => $request->description,
         ]);
 
@@ -39,15 +42,17 @@ class SettingsController extends Controller
 
     public function update($id)
     {
+        $title = Title::all();
         $description_data = Description::find($id);
-        return view('Backend.Pages.Settings.descriptions_update', compact('description_data'));
+        return view('Backend.Pages.Settings.descriptions_update', compact('description_data', 'title'));
     }
 
     public function description_update(Request $request, $id)
     {
-        $description = Description::find($id);
         // dd($request->all());
+        $description = Description::find($id);
         $validator = Validator::make($request->all(), [
+            'title_id' => 'required|integer',
             'description' => 'required',
         ]);
 
@@ -56,6 +61,7 @@ class SettingsController extends Controller
         }
 
         $description->update([
+            'title_id' => $request->title_id,
             'description' => $request->description,
         ]);
 
@@ -234,7 +240,7 @@ class SettingsController extends Controller
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'project_id' => 'required|max:2',
+            // 'project_id' => 'required|max:2',
             'title' => 'required|max:50',
         ]);
 
@@ -243,7 +249,7 @@ class SettingsController extends Controller
         }
 
         Title::create([
-            'project_id' => $request->project_id,
+            // 'project_id' => $request->project_id,
             'title' => $request->title,
         ]);
 
@@ -253,15 +259,14 @@ class SettingsController extends Controller
     public function title_update($id)
     {
         $Title = Title::find($id);
-        $Project = Project::all();
-        return view('Backend.Pages.Settings.title_update', compact('Project', 'Title'));
+        return view('Backend.Pages.Settings.title_update', compact('Title'));
     }
 
     public function title_store_update(Request $request, $id)
     {
         $Title = Title::find($id);
         $validator = Validator::make($request->all(), [
-            'project_id' => 'required|max:2',
+            // 'project_id' => 'required|max:2',
             'title' => 'required|max:50',
         ]);
 
@@ -270,7 +275,7 @@ class SettingsController extends Controller
         }
 
         $Title->update([
-            'project_id' => $request->project_id,
+            // 'project_id' => $request->project_id,
             'title' => $request->title,
         ]);
 

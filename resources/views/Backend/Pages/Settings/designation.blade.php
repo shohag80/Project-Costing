@@ -19,9 +19,9 @@
                         <div class="mb-3 add-product">
                             <label class="form-label">Description</label>
                             <select class="select select2-hidden-accessible" name="description_id" data-select2-id="select2-data-1-3msz" tabindex="-1" aria-hidden="true">
-                                <option data-select2-id="select2-data-3-x72z">Choose description</option>
+                                <option value="">Choose description</option>
                                 @foreach($Description as $item)
-                                <option value="{{$item->id}}" data-select2-id="select2-data-66-iv3p">{{$item->description}}</option>
+                                <option value="{{$item->id}}" >{{$item->description}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -39,7 +39,7 @@
                 </div>
             </form>
             <hr>
-            <table class="table table-hover">
+            <table class="table table-hover DataTable">
                 <thead>
                     <tr class="text-center bg-warning">
                         <th scope="col">SL</th>

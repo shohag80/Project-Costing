@@ -14,7 +14,7 @@
             <form action="{{route('Title_Update_Store',$Title->id)}}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-5 col-sm-10 col-10">
+                    {{-- <div class="col-lg-5 col-sm-10 col-10">
                         <div class="form-group">
                             <label class="form-label">Project</label>
                             <select class="select select2-hidden-accessible" class="form-control" name="project_id" aria-hidden="true">
@@ -25,8 +25,8 @@
                             </select>
                             <div class="text-danger">@error('project_id'){{$massage}}@enderror</div>
                         </div>
-                    </div>
-                    <div class="col-lg-5 col-sm-10 col-10">
+                    </div> --}}
+                    <div class="col-lg-10 col-sm-10 col-10">
                         <div class="form-group">
                             <label class="form-label">Title</label>
                             <input type="text" class="form-control" name="title" value="{{$Title->title}}" required maxlength="50">

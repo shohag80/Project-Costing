@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{asset('css/boxicons.css') }}">
     <link rel="stylesheet" href="{{asset('css/main.css') }}">
     <link rel="stylesheet" href="{{asset('css/style.css') }}">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 </head>
 
 
@@ -84,9 +85,11 @@
     <script src="{{asset('js/theia-sticky-sidebar.js')}}"></script>
     <script src="{{asset('js/theme-script.js')}}"></script>
     <script src="{{asset('js/script.js')}}"></script>
+    <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
+            let table = new DataTable('.DataTable');
             function salary() {
                 var designationId = $('#designation').val();
                 console.log(designationId);

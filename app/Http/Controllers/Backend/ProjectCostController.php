@@ -35,7 +35,7 @@ class ProjectCostController extends Controller
             'date' => $request->date,
         ]);
 
-        return redirect()->back();
+        return redirect()->route('Project_List');
     }
 
     public function project_update($id)
@@ -112,10 +112,11 @@ class ProjectCostController extends Controller
         $Project = Project::find($project_id);
         $Description = Description::all();
         $Designation = Designation::all();
+        $Title = Title::where('status', 1)->get();
         $Project_Details = ProjectDetails::where('project_id', $project_id)->get();
         $Total = ProjectDetails::where('project_id', $project_id)->sum('sub_total');
         // dd($Description);
-        return view('Backend.Pages.Project.project_component', compact('Project', 'Description', 'Designation', 'Project_Details', 'Total'));
+        return view('Backend.Pages.Project.project_component', compact('Project', 'Description', 'Designation', 'Project_Details', 'Total', 'Title'));
     }
 
     public function fetchSalary($designation_id)
@@ -150,5 +151,11 @@ class ProjectCostController extends Controller
             'sub_total' => $request->salary * $request->man_month,
         ]);
         return redirect()->back();
+    }
+
+    public function get_description()
+    {
+        $Description = Description::all();
+        return response()->json($Description);
     }
 }

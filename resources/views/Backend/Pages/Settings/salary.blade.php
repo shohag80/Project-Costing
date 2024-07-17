@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <table class="table table-hover">
+            <table class="table table-hover DataTable">
                 <thead>
                     <tr class="text-center bg-warning">
                         <th scope="col">SL</th>

@@ -9,13 +9,13 @@
             <div class="page-header">
                 <div class="page-title">
                     <h4>Add Title</h4>
-                    <h6>All designation in hear.</h6>
+                    <h6>All task title in hear.</h6>
                 </div>
             </div>
             <form action="{{route('Title_Store')}}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-5 col-sm-10 col-10">
+                    {{-- <div class="col-lg-5 col-sm-10 col-10">
                         <div class="form-group">
                             <label class="form-label">Project</label>
                             <select class="select select2-hidden-accessible" class="form-control" name="project_id" aria-hidden="true">
@@ -26,8 +26,8 @@
                             </select>
                             <div class="text-danger">@error('project_id'){{$massage}}@enderror</div>
                         </div>
-                    </div>
-                    <div class="col-lg-5 col-sm-10 col-10">
+                    </div> --}}
+                    <div class="col-lg-10 col-sm-10 col-10">
                         <div class="form-group">
                             <label class="form-label">Title</label>
                             <input type="text" class="form-control" name="title" required maxlength="50">
@@ -46,12 +46,12 @@
                 </div>
             </div>
 
-            <table class="table table-hover">
+            <table class="table table-hover DataTable">
                 <thead>
                     <tr class="text-center bg-warning">
                         <th scope="col">SL</th>
-                        <th scope="col">Project</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -59,8 +59,8 @@
                     @foreach($Title as $key=>$item)
                     <tr class="text-center">
                         <th scope="row">{{$key+1}}</th>
-                        <td>{{$item->project_id}}</td>
                         <td>{{$item->title}}</td>
+                        <td>{{$item->status==1 ? 'Active' : 'Inactive' }}</td>
                         <td class="action-table-data justify-content-center">
                             <div class="edit-delete-action">
                                 <a class="me-2 p-2" href="{{route('Title_Update', $item->id)}}">

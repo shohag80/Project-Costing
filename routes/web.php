@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DeshboardController::class, 'dashboard'])->name('Dashboard');
 
     Route::post('/title-store', [ProjectCostController::class, 'title_store'])->name('Title_Store');
-    
+
     Route::get('/add-project', [ProjectCostController::class, 'add_project'])->name('Add_Project');
     Route::get('/project-list', [ProjectCostController::class, 'project_list'])->name('Project_List');
     Route::post('/project-store', [ProjectCostController::class, 'project_store'])->name('Project_Store');
@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/add-component/{id}', [ProjectCostController::class, 'add_component'])->name('Add_Component');
     Route::post('/single-project/{project_id}', [ProjectCostController::class, 'project_details_store'])->name('Project_Details_Store');
+
+    Route::get('/get-description/', [ProjectCostController::class, 'get_description'])->name('Get_Description');
 
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/descriptions', [SettingsController::class, 'description_list'])->name('Description');
@@ -68,4 +70,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/title-delete/{id}', [SettingsController::class, 'title_delete'])->name('Title_Delete');
     });
 });
-    

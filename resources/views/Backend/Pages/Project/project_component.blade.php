@@ -1,68 +1,85 @@
 @extends('Backend.Master')
 
 @section('content')
-
-<form action="{{route('Project_Details_Store', $Project->id )}}" method="post">
-    @csrf
-    <div class="page-header">
-        <div class="page-title col-lg-12 col-sm-12 col-12">
-            <div class="row">
-                <div class="col-lg-9 col-sm-9 col-9">
-                    <h4>Project Components</h4>
-                    <h6>Create new component</h6>
-                </div>
-                <div class="col-lg-3 col-sm-3 col-3 text-end">
-                    <button type="submit" class="btn btn-submit">Create</button>
+    <form action="{{ route('Project_Details_Store', $Project->id) }}" method="post">
+        @csrf
+        <div class="page-header">
+            <div class="page-title col-lg-12 col-sm-12 col-12">
+                <div class="row">
+                    <div class="col-lg-9 col-sm-9 col-9">
+                        <h4>Project Components</h4>
+                        <h6>Create new component</h6>
+                    </div>
+                    <div class="col-lg-3 col-sm-3 col-3 text-end">
+                        <button type="submit" class="btn btn-submit">Create</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <hr>
-    <div class="container">
-        @foreach($Project_Details as $item)
-        <div class="row">
-            <div class="col-2">
-                <label class="form-label">Description of Work</label>
-                <select class="select select2-hidden-accessible" name="desciption_id">
-                    <option data-select2-id="select2-data-24-z6go">Choose</option>
-                    @foreach($Description as $item)
-                    <option @if($item->id==1) selected @endif value="{{$item->id}}">{{$item->description}}</option>
-                    @endforeach
-                </select>
-                <div class="text-danger">@error('description'){{$massage}}@enderror</div>
-            </div>
-            <div class="col-2">
-                <label class="form-label">Designation</label>
-                <select class="select select2-hidden-accessible" id="designation" name="designation_id">
-                    <option value="">Choose</option>
-                    @foreach($Designation as $item)
-                    <option @if($item->id==1) selected @endif value="{{$item->id}}" data-salary="{{$item->monthly_salary}}">{{$item->designation}}</option>
-                    @endforeach
-                </select>
-                <div class="text-danger">@error('description'){{$massage}}@enderror</div>
-            </div>
-            <div class="col-2">
-                <label class="form-label">Man Days</label>
-                <input type="number" class="form-control" min="0" name="man_days" id="inputField" onkeyup="validateInput(this.value)" required>
-                <div class="text-danger">@error('man_days'){{$massage}}@enderror</div>
-            </div>
-            <div class="col-2">
-                <label class="form-label">Total Months</label>
-                <input type="text" class="form-control" name="man_month" id="man_month" value="" required readonly>
-                <div class="text-danger">@error('man_days'){{$massage}}@enderror</div>
-            </div>
-            <div class="col-2">
-                <label class="form-label">Monthly Prof. Salary</label>
-                <input type="text" class="form-control" id="salary" name="salary" readonly required>
-                <div class="text-danger">@error('monthly_salary'){{$message}}@enderror</div>
-            </div>
-            <div class="col-2">
-                <label class="form-label">Sub-Total</label>
-                <input type="text" class="form-control" id="sub-total" name="sub_total" readonly required>
-                <div class="text-danger">@error('monthly_salary'){{$message}}@enderror</div>
-            </div>
+        <hr>
+        <div class="container">
+            @foreach ($Title as $key => $item)
+                <div class="container bg-warning p-2 m-2 rounded-1">
+                    {{ $key + 1 }}. {{ $item->title }}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col">Description of Work</th>
+                            <th class="col">Designation</th>
+                            <th class="col">Man Days</th>
+                            <th class="col">Total Months</th>
+                            <th class="col">Monthly Prof. Salary</th>
+                            <th class="col">Sub-Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($Description as $row)
+                            @if ($item->id == $row->title_id)
+                                <tr>
+                                    <td>
+                                        <select class="form-control" name="desciption_id[]">
+                                            <option data-select2-id="select2-data-24-z6go">Choose</option>
+                                            @foreach ($Description as $item)
+                                                <option @if ($item->id == $row->title_id) selected @endif
+                                                    value="{{ $item->id }}">
+                                                    {{ $item->description }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="designation" name="designation[]">
+                                            <option value="">Choose</option>
+                                            @foreach ($Designation as $item)
+                                                <option @if ($item->id == 1) selected @endif
+                                                    value="{{ $item->id }}" data-salary="{{ $item->monthly_salary }}">
+                                                    {{ $item->designation }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" min="0" name="man_days[]"
+                                            id="inputField" width="10px" required>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="man_month[]" id="man_month"
+                                            value="" required readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="salary" name="salary[]" readonly
+                                            required>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="sub-total" name="sub_total[]"
+                                            readonly required>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            @endforeach
         </div>
-        @endforeach
-    </div>
-</form>
+    </form>
 @endsection
