@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/fetch-salary/{designation_id}', [ProjectCostController::class, 'fetchSalary']);
-
 Route::get('/login', [AuthController::class, 'login'])->name('Login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('Logout');
 Route::post('/login', [AuthController::class, 'log_store'])->name('Login_store');

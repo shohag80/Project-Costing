@@ -36,7 +36,7 @@
                     <tbody>
                         @foreach ($Descriptions as $descKey => $description)
                             @if ($description->title_id == $title->id)
-                                <tr>
+                                <tr id="row_{{ ++$descKey }}">
                                     <td class="col">
                                         <select class="form-control" name="description_id[]">
                                             <option value="">Choose</option>
@@ -60,24 +60,25 @@
                                         </select>
                                     </td>
                                     <td class="col">
-                                        <input type="text" class="form-control" min="0" name="man_days[]">
+                                        <input type="text" class="form-control man_days" min="0" name="man_days[]"
+                                            maxlength="5" onkeyup="man_day(this.value)">
                                     </td>
                                     <td class="col">
-                                        <input type="text" class="form-control" name="man_months[]" readonly>
+                                        <input type="text" class="form-control man_months" name="man_months[]" readonly>
                                     </td>
                                     <td class="col">
-                                        <select class="form-control" name="designation[]">
+                                        <select class="form-control salary" name="designation[]">
                                             <option value="">Choose</option>
                                             @foreach ($Salary as $amt)
                                                 <option @if ($amt->designation_id == $description->designation[0]['id']) selected @endif
-                                                    value="{{ $amt->id }}">
+                                                    value="{{ $amt->salary }}">
                                                     {{ $amt->salary }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td class="col">
-                                        <input type="text" class="form-control" name="sub_total[]" readonly>
+                                        <input type="text" class="form-control sub_total" name="sub_total[]" readonly>
                                     </td>
                                 </tr>
                             @endif
@@ -87,4 +88,32 @@
             @endforeach
         </div>
     </form>
+@endsection
+@section('script')
+    <script>
+        function man_day(val) {
+            let manDay = val;
+            let calculatedManMonth = manDay / 22;
+
+            let manDaysElement = event.target;
+            let closestTr = $(manDaysElement).closest('tr');
+            
+            if (closestTr.length) {
+                let manMonthsElement = closestTr.find('.man_months');
+                let subTotalElement = closestTr.find('.sub_total');
+
+                let salaryElement = closestTr.find('.salary');
+                let salary = salaryElement.val();
+
+                let calculatedSubTotal = salary * calculatedManMonth;
+
+                if (manMonthsElement.length) {
+                    manMonthsElement.val(calculatedManMonth.toFixed(2));
+                }
+                if (subTotalElement.length) {
+                    subTotalElement.val(calculatedSubTotal.toFixed(2));
+                }
+            }
+        }
+    </script>
 @endsection

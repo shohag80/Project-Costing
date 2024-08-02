@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{asset('css/fancybox.css') }}">
     <link rel="stylesheet" href="{{asset('css/summernote.css') }}">
     <link rel="stylesheet" href="{{asset('css/bootstrap_tagsinput.css') }}">
-    <link rel="stylesheet" href="{{asset('css/datetable.css') }}">
+    <link rel="stylesheet" href="{{asset('css/datatable.css') }}">
     <link rel="stylesheet" href="{{asset('css/mobile.css') }}">
     <link rel="stylesheet" href="{{asset('css/carousel.css') }}">
     <link rel="stylesheet" href="{{asset('css/swiper.css') }}">
@@ -88,46 +88,6 @@
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            let table = new DataTable('.DataTable');
-            function salary() {
-                var designationId = $('#designation').val();
-                console.log(designationId);
-                $('#global-loader').show();
-                $.ajax({
-                    url: '/fetch-salary/' + designationId,
-                    type: 'GET',
-                    success: function(response) {
-                        $('#global-loader').hide();
-                        $('#salary').val(response.salary);
-                    },
-                    error: function() {
-                        $('#global-loader').hide();
-                        $('#salary').val('Error fetching salary');
-                    }
-                });
-            };
-            salary();
-            $('#designation').on('change', salary);
-        });
-
-        function validateInput(value) {
-            // alert(value);
-            document.getElementById('man_month').value = value / 20;
-
-            var months = $('#man_month').val();
-            var salary = $('#salary').val();
-            var sub_total = months * salary;
-
-            $('#sub-total').val(sub_total);
-        }
-        // Number Input
-        document.getElementById("numberInput").addEventListener("keypress", function(event) {
-            // Allow only numbers
-            if (event.keyCode < 48 || event.keyCode > 57) {
-                event.preventDefault();
-            }
-        });
         // Date Input
         document.getElementById("dateInput").addEventListener("input", function(event) {
             let inputValue = event.target.value;
@@ -138,6 +98,7 @@
             }
         });
     </script>
+    @yield('script')
 </body>
 
 </html>

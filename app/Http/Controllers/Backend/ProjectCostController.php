@@ -120,12 +120,6 @@ class ProjectCostController extends Controller
         return view('Backend.Pages.Project.project_component', compact('Salary', 'Project', 'Descriptions', 'Designations', 'Project_Details', 'Total', 'Titles'));
     }
 
-    public function fetchSalary($designation_id)
-    {
-        $salary = Salary::where('designation_id', $designation_id)->value('salary');
-        return response()->json(['salary' => $salary]);
-    }
-
     public function project_details_store(Request $request, $project_id)
     {
         dd($request->all());
