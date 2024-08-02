@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DeshboardController;
+use App\Http\Controllers\Backend\OthersController;
 use App\Http\Controllers\Backend\ProjectCostController;
 use App\Http\Controllers\Backend\SettingsController;
 use App\Models\Designation;

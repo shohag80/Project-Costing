@@ -118,7 +118,6 @@ class ProjectCostController extends Controller
         $Designations = DesignaitonWithSalary::all();
         $Project_Details = ProjectDetails::where('project_id', $project_id)->get();
         $Total = ProjectDetails::where('project_id', $project_id)->sum('sub_total');
-        // dd($Mapping);
         return view('Backend.Pages.Project.project_component', compact('Project', 'Mapping', 'Descriptions', 'Designations', 'Project_Details', 'Total', 'Titles'));
     }
 

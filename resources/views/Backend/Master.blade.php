@@ -87,17 +87,6 @@
     <script src="{{asset('js/script.js')}}"></script>
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 
-    <script>
-        // Date Input
-        document.getElementById("dateInput").addEventListener("input", function(event) {
-            let inputValue = event.target.value;
-            let dateFormat = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
-
-            if (!dateFormat.test(inputValue)) {
-                event.target.value = inputValue.slice(0, -1); // Remove the last character
-            }
-        });
-    </script>
     @yield('script')
 </body>
 

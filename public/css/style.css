@@ -17,3 +17,15 @@
        transform: scale(0.6);
        transform-origin: 0 0;
    }
+
+   .title_sub_total {
+       width: 100px;
+       border-radius: 5px;
+       border-color: orange
+   }
+
+   ::-webkit-scrollbar {
+       width: 5px;
+       height: 0px;
+       border-radius: 50px !important;
+   }

@@ -1983,25 +1983,7 @@ $(document).ready(function () {
 		});
 	});
 	/* card with close button */
-
-
-	// $('.add_new').click(function () {
-	// 	$('.components').append('');
-
-	// 	$.ajax({
-	// 		url: '/get-description/',
-	// 		type: 'GET',
-	// 		success: function (response) {
-	// 			console.log(response);
-	// 			$('#desciption_id').val(response.description);
-	// 		},
-	// 		error: function () {
-	// 			$('#global-loader').hide();
-	// 			$('#salary').val('Error fetching salary');
-	// 		}
-	// 	});
-
-	// });
+	
 
 });
 
