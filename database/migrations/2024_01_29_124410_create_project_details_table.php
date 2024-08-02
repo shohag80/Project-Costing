@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('project_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->restrictOnDelete();
-            $table->foreignId('designation_id')->constrained()->restrictOnDelete();
-            $table->foreignId('description_id')->constrained()->restrictOnDelete();
-            $table->string('title');
-            $table->string('salary');
+            $table->string('title_id');
+            $table->string('description_id');
+            $table->string('designation');
             $table->string('man_days');
             $table->double('man_month');
+            $table->string('salary');
             $table->double('sub_total');
             $table->timestamps();
         });

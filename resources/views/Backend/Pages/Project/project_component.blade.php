@@ -40,10 +40,10 @@
                                     <td class="col">
                                         <select class="form-control" name="description_id[]">
                                             <option value="">Choose</option>
-                                            @foreach ($Descriptions as $descItem)
-                                                <option @if ($descItem->id == $description->id) selected @endif
-                                                    value="{{ $descItem->id }}">
-                                                    {{ $descItem->description }}
+                                            @foreach ($Mapping as $map)
+                                                <option @if ($description->id == $map->id) selected @endif
+                                                value="{{ $map->id }}">
+                                                    {{ $map->description->description }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -51,10 +51,10 @@
                                     <td class="col">
                                         <select class="form-control" name="designation[]">
                                             <option value="">Choose</option>
-                                            @foreach ($Designations as $designation)
-                                                <option @if ($designation->description_id == $description->id) selected @endif
-                                                    value="{{ $designation->id }}">
-                                                    {{ $designation->designation }}
+                                            @foreach ($Mapping as $map)
+                                                <option @if ($description->id == $map->id) selected @endif
+                                                value="{{ $map->id }}">
+                                                    {{ $map->designation->designation }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -69,10 +69,10 @@
                                     <td class="col">
                                         <select class="form-control salary" name="designation[]">
                                             <option value="">Choose</option>
-                                            @foreach ($Salary as $amt)
-                                                <option @if ($amt->designation_id == $description->designation[0]['id']) selected @endif
-                                                    value="{{ $amt->salary }}">
-                                                    {{ $amt->salary }}
+                                            @foreach ($Mapping as $map)
+                                                <option @if ($description->id == $map->id) selected @endif
+                                                value="{{ $map->id }}">
+                                                    {{ $map->designation->salary }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -97,7 +97,7 @@
 
             let manDaysElement = event.target;
             let closestTr = $(manDaysElement).closest('tr');
-            
+
             if (closestTr.length) {
                 let manMonthsElement = closestTr.find('.man_months');
                 let subTotalElement = closestTr.find('.sub_total');

@@ -14,8 +14,4 @@ class ProjectDetails extends Model
         return $this->belongsTo(Description::class);
     }
 
-    public function designation(){
-        return $this->belongsTo(Designation::class);
-    }
-
 }

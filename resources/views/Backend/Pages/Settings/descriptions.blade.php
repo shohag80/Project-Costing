@@ -61,7 +61,7 @@
                         @foreach ($description as $key => $item)
                             <tr class="text-center">
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $item->title_id }}</td>
+                                <td>{{ $item->title->title }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td class="action-table-data justify-content-center">
                                     <div class="edit-delete-action">

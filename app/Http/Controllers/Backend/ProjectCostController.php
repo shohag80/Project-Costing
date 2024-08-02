@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Description;
+use App\Models\DesignaitonWithSalary;
 use App\Models\Designation;
+use App\Models\Mapping;
 use App\Models\Project;
 use App\Models\ProjectDetails;
 use App\Models\Salary;
@@ -110,14 +112,14 @@ class ProjectCostController extends Controller
     public function add_component($project_id)
     {
         $Project = Project::find($project_id);
+        $Mapping = Mapping::with('description', 'designation')->get();
         $Titles = Title::where('status', 1)->get();
-        $Descriptions = Description::with('designation')->get();
-        $Designations = Designation::with('description')->get();
-        $Salary = Salary::all();
+        $Descriptions = Description::all();
+        $Designations = DesignaitonWithSalary::all();
         $Project_Details = ProjectDetails::where('project_id', $project_id)->get();
         $Total = ProjectDetails::where('project_id', $project_id)->sum('sub_total');
-        // dd($Descriptions);
-        return view('Backend.Pages.Project.project_component', compact('Salary', 'Project', 'Descriptions', 'Designations', 'Project_Details', 'Total', 'Titles'));
+        // dd($Mapping);
+        return view('Backend.Pages.Project.project_component', compact('Project', 'Mapping', 'Descriptions', 'Designations', 'Project_Details', 'Total', 'Titles'));
     }
 
     public function project_details_store(Request $request, $project_id)

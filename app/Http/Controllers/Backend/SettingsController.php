@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Description;
+use App\Models\DesignaitonWithSalary;
 use App\Models\Designation;
+use App\Models\Mapping;
 use App\Models\Project;
 use App\Models\Salary;
 use App\Models\Title;
@@ -15,7 +17,7 @@ class SettingsController extends Controller
 {
     public function description_list()
     {
-        $description = Description::all();
+        $description = Description::with('title')->get();
         $title = Title::all();
         return view('Backend.Pages.Settings.descriptions', compact('description', 'title'));
     }
@@ -87,63 +89,67 @@ class SettingsController extends Controller
 
 
 
-    public function designation()
+    public function mapping()
     {
-        $Designation = Designation::with('description')->get();
+        $Mapping = Mapping::with('description', 'designation')->get();
         $Description = Description::all();
-        return view('Backend.Pages.Settings.designation', compact('Designation', 'Description'));
+        $Designation = DesignaitonWithSalary::all();
+        // dd($Mapping);
+        return view('Backend.Pages.Settings.designation', compact('Designation', 'Description', 'Mapping'));
     }
 
-    public function designation_store(Request $request)
+    public function mapping_store(Request $request)
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'description_id' => 'required',
-            'designation' => 'required',
+            'designation_id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        Designation::create([
+        Mapping::create([
             'description_id' => $request->description_id,
-            'designation' => $request->designation,
+            'designaiton_with_salary_id' => $request->designation_id,
         ]);
 
         return redirect()->back();
     }
 
 
-    public function designation_update($id)
+    public function mapping_update($id)
     {
-        $designation = Designation::find($id);
-        $description = Description::all();
-        return view('Backend.Pages.Settings.designation_update', compact('designation', 'description'));
+        $Mapping = Mapping::find($id);
+        $Description = Description::all();
+        $Designation = DesignaitonWithSalary::all();
+        // dd($Mapping);
+        return view('Backend.Pages.Settings.designation_update', compact('Designation', 'Description', 'Mapping'));
     }
 
-    public function designation_update_store(Request $request, $id)
+    public function mapping_update_store(Request $request, $id)
     {
         // dd($request->all());
-        $designation = Designation::find($id);
+        $Mapping = Mapping::find($id);
         $validator = Validator::make($request->all(), [
             'description_id' => 'required',
-            'designation' => 'required',
+            'designation_id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $designation->update([
+        $Mapping->update([
             'description_id' => $request->description_id,
-            'designation' => $request->designation,
+            'designaiton_with_salary_id' => $request->designation_id,
         ]);
 
-        return redirect()->route('Designation');
+        return redirect()->route('Mapping');
     }
 
-    public function designation_delete($id)
+    public function mapping_delete($id)
     {
         Designation::find($id)->delete();
         return redirect()->back();
@@ -159,16 +165,15 @@ class SettingsController extends Controller
 
     public function salary()
     {
-        $Designation = Designation::all();
-        $Salary = Salary::with('designation')->get();
-        return view('Backend.Pages.Settings.salary', compact('Designation', 'Salary'));
+        $Designation = DesignaitonWithSalary::all();
+        return view('Backend.Pages.Settings.salary', compact('Designation'));
     }
 
     public function salary_store(Request $request)
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'designation_id' => 'required',
+            'designation' => 'required',
             'salary' => 'required',
         ]);
 
@@ -176,8 +181,8 @@ class SettingsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        Salary::create([
-            'designation_id' => $request->designation_id,
+        DesignaitonWithSalary::create([
+            'designation' => $request->designation,
             'salary' => $request->salary,
         ]);
 
@@ -186,16 +191,15 @@ class SettingsController extends Controller
 
     public function salary_update($id)
     {
-        $Salary = Salary::find($id);
-        $Designation = Designation::all();
-        return view('Backend.Pages.Settings.salary_update', compact('Designation', 'Salary'));
+        $Salary = DesignaitonWithSalary::find($id);
+        return view('Backend.Pages.Settings.salary_update', compact('Salary'));
     }
 
     public function salary_store_update(Request $request, $id)
     {
-        $Salary = Salary::find($id);
+        $Salary = DesignaitonWithSalary::find($id);
         $validator = Validator::make($request->all(), [
-            'designation_id' => 'required',
+            'designation' => 'required',
             'salary' => 'required',
         ]);
 
@@ -204,7 +208,7 @@ class SettingsController extends Controller
         }
 
         $Salary->update([
-            'designation_id' => $request->designation_id,
+            'designation' => $request->designation,
             'salary' => $request->salary,
         ]);
 
@@ -213,7 +217,7 @@ class SettingsController extends Controller
 
     public function salary_delete($id)
     {
-        Salary::find($id)->delete();
+        DesignaitonWithSalary::find($id)->delete();
         return redirect()->back();
     }
 

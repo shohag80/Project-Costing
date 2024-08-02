@@ -14,16 +14,11 @@
             <form action="{{route('Salary_Update_Store',$Salary->id)}}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-5 col-sm-10 col-10">
-                        <div class="form-group">
+                    <div class="col-lg-5 col-sm-5 col-5">
+                        <div class="mb-3 add-product">
                             <label class="form-label">Designation</label>
-                            <select class="select select2-hidden-accessible" class="form-control" name="designation_id" aria-hidden="true">
-                                <option>Choose Designation</option>
-                                @foreach($Designation as $item)
-                                <option @if($Salary->designation_id==$item->id) selected @endif value="{{$item->id}}">{{$item->designation}}</option>
-                                @endforeach
-                            </select>
-                            <div class="text-danger">@error('designation_id'){{$massage}}@enderror</div>
+                            <input type="text" class="form-control" name="designation" required value="{{ $Salary->designation }}">
+                            <div class="text-danger">@error('designation'){{$massage}}@enderror</div>
                         </div>
                     </div>
                     <div class="col-lg-5 col-sm-10 col-10">

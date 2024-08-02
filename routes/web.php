@@ -49,11 +49,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/description-update-store/{id}', [SettingsController::class, 'description_update'])->name('Description_Update_Store');
         Route::get('/description-delete/{id}', [SettingsController::class, 'description_delete'])->name('Description_Delete');
 
-        Route::get('/designation', [SettingsController::class, 'designation'])->name('Designation');
-        Route::post('/designation', [SettingsController::class, 'designation_store'])->name('Designation_Store');
-        Route::get('/designation-update/{id}', [SettingsController::class, 'designation_update'])->name('Designation_Update');
-        Route::post('/designation-update/{id}', [SettingsController::class, 'designation_update_store'])->name('Designation_Update_Store');
-        Route::get('/designation-delete/{id}', [SettingsController::class, 'designation_delete'])->name('Designation_Delete');
+        Route::get('/mapping', [SettingsController::class, 'mapping'])->name('Mapping');
+        Route::post('/mapping', [SettingsController::class, 'mapping_store'])->name('Designation_Store');
+        Route::get('/mapping-update/{id}', [SettingsController::class, 'mapping_update'])->name('Designation_Update');
+        Route::post('/mapping-update/{id}', [SettingsController::class, 'mapping_update_store'])->name('Designation_Update_Store');
+        Route::get('/mapping-delete/{id}', [SettingsController::class, 'mapping_delete'])->name('Designation_Delete');
 
         Route::get('/salary', [SettingsController::class, 'salary'])->name('Salary');
         Route::post('/salary', [SettingsController::class, 'salary_store'])->name('Salary_Store');
