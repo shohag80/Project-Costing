@@ -102,59 +102,51 @@
                 </div>
                 <thead>
                     <tr>
-                        <th class="col-6"></th>
-                        <th></th>
-                        <th></th>
+                        <th colspan="3" class="col-6"></th>
                         <th class="text-center">Persentage(%)</th>
                         <th class="text-center">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="bg-warning">
-                        <th>Total Cost</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <th colspan="4">Total Cost</th>
                         <td><input type="text" name="total" class="form-control" id="total" placeholder="Total">
                         </td>
                     </tr>
                     <tr>
-                        <th>Risk</th>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="total_persentage" class="form-control" placeholder="Persentage">
+                        <th colspan="3">Risk</th>
+                        <td><input type="text" name="total_persentage" id="risk" class="form-control"
+                                placeholder="Persentage" maxlength="3">
                         </td>
-                        <td><input type="text" name="total" class="form-control" placeholder="Total Risk"></td>
+                        <td><input type="text" name="total" class="form-control" id="risk_amount"
+                                placeholder="Total Risk"></td>
                     </tr>
                     <tr>
-                        <th>Profit on TC</th>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="profit_persentage" class="form-control" placeholder="Persentage">
+                        <th colspan="3">Profit on TC</th>
+                        <td><input type="text" name="profit_persentage" id="profit" class="form-control"
+                                placeholder="Persentage">
                         </td>
-                        <td><input type="text" name="profit_on_tc" class="form-control" placeholder="Total Profit"></td>
+                        <td><input type="text" name="profit_on_tc" id="profit_amount" class="form-control"
+                                placeholder="Total Profit"></td>
                     </tr>
                     <tr class="bg-warning">
-                        <th>Sub-Total</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="sub_total" class="form-control" placeholder="Sub-Total"></td>
+                        <th colspan="4">Sub-Total</th>
+                        <td><input type="text" name="sub_total" id="sub_total" class="form-control"
+                                placeholder="Sub-Total"></td>
                     </tr>
                     <tr>
-                        <th>Vat & Tax</th>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="vat_tax_persentage" class="form-control" placeholder="Persentage">
+                        <th colspan="3">Vat & Tax</th>
+                        <td><input type="text" name="vat_tax_persentage" id="vat_tax" class="form-control"
+                                placeholder="Persentage">
                         </td>
-                        <td><input type="text" name="vat_tax" class="form-control" placeholder="Total Vat & Tax"></td>
+                        <td><input type="text" name="vat_tax" id="vat_tax_amount" class="form-control"
+                                placeholder="Total Vat & Tax"></td>
                     </tr>
                     <tr class="bg-warning">
-                        <th>Grand Total</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="grand_total" class="form-control" placeholder="Grand Total"></td>
+                        <th colspan="4">Grand Total</th>
+                        <td><input type="text" name="grand_total" id="grand_total" class="form-control"
+                                placeholder="Grand Total">
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -168,10 +160,6 @@
             let calculatedManMonth = manDay / 22;
 
             let manDaysElement = event.target;
-            let check = manDaysElement.value.replace(/[^0-9]/g, '');
-            if(!check){
-                manDaysElement.value = 0;
-            }
             let closestTr = $(manDaysElement).closest('tr');
             let closestContainer = $(manDaysElement).closest('.container');
             let componentBody = $(manDaysElement).closest('.component_body');
@@ -209,8 +197,82 @@
                     });
 
                     $('#total').val(sum_total.toFixed(2));
+
+                    let total = parseFloat($('#total').val()) || 0;
+                    let total_risk = parseFloat($('#risk_amount').val()) || 0;
+                    let profit = parseFloat($('#profit_amount').val()) || 0;
+                    let sub_total = $('#sub_total');
+                    let vat_tax_amount = parseFloat($('#vat_tax_amount').val()) || 0;
+                    let grand_total = $('#grand_total');
+
+                    let sub_total_amount = total + total_risk + profit;
+                    let grand_total_amount = vat_tax_amount + sub_total_amount;
+                    sub_total.val(sub_total_amount.toFixed(2));
+                    grand_total.val(grand_total_amount.toFixed(2));
                 }
             }
         }
+
+        $('#risk').on('keyup', function() {
+            let total = parseFloat($('#total').val()) || 0;
+            let risk = parseFloat($(this).val()) || 0;
+            let total_risk = $('#risk_amount');
+            let profit = parseFloat($('#profit_amount').val()) || 0;
+            let sub_total = $('#sub_total');
+            let vat_tax_amount = parseFloat($('#vat_tax_amount').val()) || 0;
+
+            let cal_data = (total / 100) * risk;
+            let sub_total_cal_data = total + cal_data + profit;
+
+            total_risk.val(cal_data.toFixed(2));
+            sub_total.val(sub_total_cal_data.toFixed(2));
+
+            if (!isNaN(vat_tax_amount)) {
+                let sub_total_amount = parseFloat(sub_total.val()) || 0;
+                let grand_total_amount = vat_tax_amount + sub_total_amount;
+
+                let grand_total = $('#grand_total');
+                grand_total.val(grand_total_amount.toFixed(2));
+            }
+        });
+
+
+
+        $('#profit').on('keyup', function() {
+            let total = parseFloat($('#total').val()) || 0;
+            let total_risk = parseFloat($('#risk_amount').val()) || 0;
+            let profit = parseFloat($(this).val()) || 0;
+            let total_profit = $('#profit_amount');
+            let sub_total = $('#sub_total');
+            let vat_tax_amount = parseFloat($('#vat_tax_amount').val()) || 0;
+
+            let cal_data = (total / 100) * profit;
+            let sub_total_cal_data = total + cal_data + total_risk;
+
+            total_profit.val(cal_data.toFixed(2));
+            sub_total.val(sub_total_cal_data.toFixed(2));
+
+            if (!isNaN(vat_tax_amount)) {
+                let sub_total_amount = parseFloat(sub_total.val()) || 0;
+                let grand_total_amount = vat_tax_amount + sub_total_amount;
+
+                let grand_total = $('#grand_total');
+                grand_total.val(grand_total_amount.toFixed(2));
+            }
+        });
+
+        $('#vat_tax').on('keyup', function() {
+            let vat_tax = parseFloat($(this).val()) || 0;
+            let sub_total = parseFloat($('#sub_total').val()) || 0;
+            let total = parseFloat($('#total').val()) || 0;
+            let vat_tax_amount = $('#vat_tax_amount');
+            let grand_total = $('#grand_total');
+
+            let cal_data = (total / 100) * vat_tax;
+            let sub_total_cal_data = cal_data + sub_total;
+
+            vat_tax_amount.val(cal_data.toFixed(2));
+            grand_total.val(sub_total_cal_data.toFixed(2));
+        });
     </script>
 @endsection
