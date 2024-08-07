@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained()->restrictOnDelete();
             $table->string('title_id');
             $table->string('description_id');
-            $table->string('designation');
+            $table->string('designation_id');
             $table->string('man_days');
             $table->double('man_month');
             $table->string('salary');

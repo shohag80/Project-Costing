@@ -102,9 +102,9 @@
             <tr class="text-center">
                 <th scope="row">{{$key+1}}</th>
                 <td>{{$item->project_code}}</td>
-                <td>{{$item->project_title}}</td>
+                <td>{{$item->project_name}}</td>
                 <td>{{$item->client}}</td>
-                <td>{{$item->date}}</td>
+                <td>{{$item->submission_date}}</td>
                 <td class="action-table-data justify-content-center">
                     <div class="edit-delete-action">
                         <a class="me-2 edit-icon  p-2" href="" data-bs-toggle="modal" data-bs-target="#prints-barcode">

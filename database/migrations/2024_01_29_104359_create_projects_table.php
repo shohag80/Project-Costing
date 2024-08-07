@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('project_code')->unique();
-            $table->string('project_title');
+            $table->string('project_name');
             $table->string('client');
-            $table->date('date');
+            $table->date('submission_date');
+            $table->string('total')->default(0);
+            $table->string('risk')->default(0);
+            $table->string('profit')->default(0);
+            $table->string('sub_total')->default(0);
+            $table->string('vat_and_tax')->default(0);
+            $table->string('grand_total')->default(0);
             $table->timestamps();
         });
     }

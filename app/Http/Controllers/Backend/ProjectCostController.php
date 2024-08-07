@@ -32,9 +32,9 @@ class ProjectCostController extends Controller
 
         Project::create([
             'project_code' => $request->project_code,
-            'project_title' => $request->project_title,
+            'project_name' => $request->project_title,
             'client' => $request->client,
-            'date' => $request->date,
+            'submission_date' => $request->date,
         ]);
 
         return redirect()->route('Project_List');

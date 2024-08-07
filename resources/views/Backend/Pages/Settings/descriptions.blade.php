@@ -17,7 +17,7 @@
                         <div class="col-lg-5 col-sm-10 col-10">
                             <div class="mb-3 title">
                                 <label class="form-label">Title</label>
-                                <select class="select select2-hidden-accessible" name="title_id">
+                                <select class="select select2-hidden-accessible" name="title_id" required>
                                     <option data-select2-id="select2-data-3-x72z">Choose Title</option>
                                     @foreach ($title as $item)
                                         <option value="{{ $item->id }}">

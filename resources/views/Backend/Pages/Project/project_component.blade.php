@@ -7,7 +7,7 @@
             <div class="page-title col-lg-12 col-sm-12 col-12">
                 <div class="row">
                     <div class="col-lg-9 col-sm-9 col-9">
-                        <h4>{{ $Project->project_title }} Components</h4>
+                        <h4>{{ $Project->project_name }} Components</h4>
                         <h6>Create new component</h6>
                     </div>
                     <div class="col-lg-3 col-sm-3 col-3 text-end">
@@ -19,12 +19,12 @@
         <hr>
         <div class="container">
             @foreach ($Titles as $key => $title)
+            <input type="hidden" name="title_id_{{ $key }}" value="{{ $title->id }}">
                 <div class="component_body">
                     <div class="container-fluid bg-warning p-2 rounded-1">
                         <div class="row">
                             <div class="col-md-6">{{ $key + 1 }}. {{ $title->title }}</div>
-                            <div class="col-md-6 text-end">Title Sub-Total: <input type="text" name="title_sub_total"
-                                    class="title_sub_total" readonly></div>
+                            <div class="col-md-6 text-end">Title Sub-Total: <input type="text" name="title_sub_total_{{ $key }}" class="title_sub_total" readonly></div>
                         </div>
                     </div>
                     <table class="table table-hover">
@@ -43,21 +43,21 @@
                                 @if ($description->title_id == $title->id)
                                     <tr>
                                         <td class="col">
-                                            <select class="form-control" name="description_id[]">
+                                            <select class="form-control" name="description_id_{{ $key }}[]">
                                                 <option value="">Choose</option>
                                                 @foreach ($Mapping as $map)
-                                                    <option @if ($description->id == $map->id) selected @endif
-                                                        value="{{ $map->id }}">
+                                                    <option @if ($description->id == $map->description_id) selected @endif
+                                                        value="{{ $map->description->description }}">
                                                         {{ $map->description->description }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </td>
                                         <td class="col">
-                                            <select class="form-control" name="designation[]">
+                                            <select class="form-control" name="designation_id_{{ $key }}[]">
                                                 <option value="">Choose</option>
                                                 @foreach ($Mapping as $map)
-                                                    <option @if ($description->id == $map->id) selected @endif
+                                                    <option @if ($description->id == $map->description_id) selected @endif
                                                         value="{{ $map->designation->designation }}">
                                                         {{ $map->designation->designation }}
                                                     </option>
@@ -66,17 +66,17 @@
                                         </td>
                                         <td class="col">
                                             <input type="text" class="form-control man_days" min="0"
-                                                name="man_days[]" maxlength="4" onkeyup="man_day(this.value)">
+                                                name="man_days_{{ $key }}[]" maxlength="4" onkeyup="man_day(this.value)">
                                         </td>
                                         <td class="col">
-                                            <input type="text" class="form-control man_months" name="man_months[]"
+                                            <input type="text" class="form-control man_months" name="man_months_{{ $key }}[]"
                                                 readonly>
                                         </td>
                                         <td class="col">
-                                            <select class="form-control salary" name="designation[]">
+                                            <select class="form-control salary" name="designation_{{ $key }}[]">
                                                 <option value="">Choose</option>
                                                 @foreach ($Mapping as $map)
-                                                    <option @if ($description->id == $map->id) selected @endif
+                                                    <option @if ($description->id == $map->description_id) selected @endif
                                                         value="{{ $map->designation->salary }}">
                                                         {{ $map->designation->salary }}
                                                     </option>
@@ -84,7 +84,7 @@
                                             </select>
                                         </td>
                                         <td class="col">
-                                            <input type="text" class="form-control sub_total" name="sub_total[]"
+                                            <input type="text" class="form-control sub_total" name="com_sub_total_{{ $key }}[]"
                                                 readonly>
                                         </td>
                                     </tr>
@@ -109,7 +109,7 @@
                 </thead>
                 <tbody>
                     <tr class="bg-warning">
-                        <th colspan="4">Total Cost</th>
+                        <th colspan="4" class="bg-warning">Total Cost</th>
                         <td><input type="text" name="total" class="form-control" id="total" placeholder="Total">
                         </td>
                     </tr>
@@ -130,7 +130,7 @@
                                 placeholder="Total Profit"></td>
                     </tr>
                     <tr class="bg-warning">
-                        <th colspan="4">Sub-Total</th>
+                        <th colspan="4" class="bg-warning">Sub-Total</th>
                         <td><input type="text" name="sub_total" id="sub_total" class="form-control"
                                 placeholder="Sub-Total"></td>
                     </tr>
@@ -143,7 +143,7 @@
                                 placeholder="Total Vat & Tax"></td>
                     </tr>
                     <tr class="bg-warning">
-                        <th colspan="4">Grand Total</th>
+                        <th colspan="4" class="bg-warning">Grand Total</th>
                         <td><input type="text" name="grand_total" id="grand_total" class="form-control"
                                 placeholder="Grand Total">
                         </td>

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('titles', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('project_id')->constrained()->restrictOnDelete();
             $table->string('title');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
